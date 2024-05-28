@@ -8,7 +8,11 @@ import PrivateRoute from "./routes/PrivateRoutes";
 import LoginPage from "./pages/AuthPage/LoginPage";
 import { ToastContainer } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+import { clearUser } from "./redux/slices/userSlice";
 const App: React.FC = () => {
+  store.dispatch(clearUser())
   const router = createBrowserRouter([
     {
       path: "/",
@@ -36,8 +40,10 @@ const App: React.FC = () => {
   ]);
   return (
     <div className="App">
+    <Provider store={store}>
       <RouterProvider router={router} />
       <ToastContainer/>
+      </Provider>
     </div>
   );
 };

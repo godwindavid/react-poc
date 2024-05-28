@@ -6,8 +6,11 @@ import { getEmployees } from "../../service/employee.service";
 import { Person } from "../../interface/employe.interface";
 import Employees from "../Employees";
 import { deleteEmployee } from "../../service/employee.service";
+import { useSelector } from 'react-redux';
 const TimeSheet: React.FC = () => {
-  const [employees, setEmployees] = useState<Person[]>([]);
+  
+  const user = useSelector((state: any) => state.user.userList);
+  const [employees, setEmployees] = useState<Person[]>(user);
   const [employee, setEmployee] = useState<Person | undefined>();
   const [open, setOpen] = useState<boolean>(false);
   const setEditData = (id?: number | string | null) => {
@@ -21,15 +24,12 @@ const TimeSheet: React.FC = () => {
       setOpen(true);
     }
   };
-  const deleteEmp = async (id:string) => {
-        if(id){
-            try{
-                await deleteEmployee(id)
-            }
-            catch(err){
-
-            }
-        }
+  const deleteEmp = async (id: string) => {
+    if (id) {
+      try {
+        await deleteEmployee(id);
+      } catch (err) {}
+    }
   };
   const onclose = () => {
     setOpen(false);
@@ -48,6 +48,10 @@ const TimeSheet: React.FC = () => {
       getEmployeeDetails();
     }
   }, [open]);
+
+  useEffect(() => {
+    setEmployees(user)
+  }, [user])
 
   return (
     <>

@@ -6,6 +6,8 @@ import { validationSchema } from "./validation";
 import "./styles.css";
 import { Person, Temployee } from "../../../interface/employe.interface";
 import { createEmployee, editEmployee } from "../../../service/employee.service";
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { addUser } from "../../../redux/slices/userSlice";
 
 
 type Tprops = {
@@ -15,6 +17,7 @@ type Tprops = {
   close: () => void;
 };
 const EmployeeModal: React.FC<Tprops> = (props) => {
+  const dispatch = useDispatch()
 
   const handleEmployee=async(payload:Temployee)=>{
     try{
@@ -25,10 +28,8 @@ const EmployeeModal: React.FC<Tprops> = (props) => {
                 props.close()
            }
         }else{
-          const res =  await createEmployee(payload)
-          if(res){
-            props.close()
-          }
+          dispatch(addUser(payload))
+          props.close()
         }
         
     }

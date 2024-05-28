@@ -12,12 +12,12 @@ const LoginPage: React.FC = () => {
   const userLogin = async (payload: Tlogin) => {
     try{
     payload.email=payload.email.toLowerCase()
-    const res = await login(payload);
-    if(res){
-        console.log(res)
-        localStorage.setItem("accessToken",res.data.token)
+    // const res = await login(payload);
+    // if(res){
+        // console.log(res)
+        localStorage.setItem("accessToken","res.data.token")
         navigate('/dashboard')
-    }
+    // }
     }
     catch(err:any){
       Toaster({toast:err.message,toastType:"error"})

@@ -14,12 +14,11 @@ type tableType={
 }
 
 const ReactTable:React.FC<tableType>=(props)=>{
-  const [data] = React.useState(() => props.tData)
   const [columns]=React.useState(()=>props.tcolumns)
 
 
   const table = useReactTable({
-    data,
+    data: props.tData,
     columns,
     getCoreRowModel: getCoreRowModel(),
   })
